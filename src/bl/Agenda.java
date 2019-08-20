@@ -1,5 +1,8 @@
-package Prac1;
+package bl;
+
 import javax.swing.JOptionPane;
+
+import Prac1.Contacto;
 
 public class Agenda {
 
@@ -11,7 +14,9 @@ public class Agenda {
 
     public Agenda(int tamanio) {
         this.contactos = new Contacto[tamanio];
+        
     }
+
 
     public void aniadirContacto(Contacto c) {
 
@@ -52,7 +57,7 @@ public class Agenda {
     public Contacto[] getContactos() {
         return contactos;
     }
-    
+   
     public boolean agendaLlena() {
 
         for (int i = 0; i < contactos.length; i++) {
@@ -82,7 +87,6 @@ public class Agenda {
         }
 
     }
-    
     public void modificarContacto(Contacto c, int fila_seleccionada) {
     	boolean encontrado = false;
     	int a = fila_seleccionada;

@@ -8,8 +8,6 @@ public class Contacto implements Serializable{
 	    private String nombre;
 	    private int telefono;
 
-		public boolean fila_seleccionada;
-
 	    public Contacto(String nombre, int telefono) {
 	        this.nombre = nombre;
 	        this.telefono = telefono;

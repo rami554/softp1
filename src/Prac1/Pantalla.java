@@ -1,6 +1,9 @@
 package Prac1;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
+import bl.Agenda;
+
 public class Pantalla extends javax.swing.JFrame {
 	 
 	private static final long serialVersionUID = 1L;
@@ -15,7 +18,7 @@ public class Pantalla extends javax.swing.JFrame {
 	        modelo.addColumn("Nombre");
 	        modelo.addColumn("Telefono");
 
-	        agenda = new Agenda();
+	       agenda = new Agenda();
 	    }
 
 	    private void initComponents() {
@@ -178,9 +181,9 @@ public class Pantalla extends javax.swing.JFrame {
 	            String nombre = (String) modelo.getValueAt(fila_seleccionada, 0);
 	            int tel = (int) modelo.getValueAt(fila_seleccionada, 1);
 
-	            Contacto aux = new Contacto(nombre, tel);
+	            Contacto c = new Contacto(nombre, tel);
 
-	            agenda.eliminarContacto(aux);
+	            agenda.eliminarContacto(c);
 
 	            rellenarTabla();
 
@@ -191,8 +194,8 @@ public class Pantalla extends javax.swing.JFrame {
 	    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
 	    	
 	    	int fila_seleccionada = this.tblContactos.getSelectedRow();
-	    	System.out.println(fila_seleccionada);
-	        if (fila_seleccionada == -1) {
+	        
+	    	if (fila_seleccionada == -1) {
 	            JOptionPane.showMessageDialog(this, "No has seleccionado ninguna fila", "Error", JOptionPane.ERROR_MESSAGE);
 	        } else {
 	        	String nombre = (String) modelo.getValueAt(fila_seleccionada, 0);
@@ -241,7 +244,7 @@ public class Pantalla extends javax.swing.JFrame {
 
 	    private DefaultTableModel modelo;
 	    private Agenda agenda;
-
+	    
 	    private javax.swing.JButton btnAnadir;
 	    private javax.swing.JButton btnModificar;
 	    private javax.swing.JButton btnEliminar;
