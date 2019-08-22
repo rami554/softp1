@@ -1,5 +1,10 @@
 package Prac1;
+import java.io.File;
+import java.io.IOException;
+
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 import bl.Agenda;
@@ -35,6 +40,7 @@ public class Pantalla extends javax.swing.JFrame {
 	        btnSalir = new javax.swing.JButton();
 	        jMenuBar1 = new javax.swing.JMenuBar();
 	        jMenu1 = new javax.swing.JMenu();
+	        miExp = new javax.swing.JMenuItem();
 	        miImp = new javax.swing.JMenuItem();
 
 	        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -84,6 +90,23 @@ public class Pantalla extends javax.swing.JFrame {
 	            }
 	        });
 
+	        jMenu1.setText("Importar/Exportar");
+
+	        miExp.setText("Importar");
+	        miExp.addActionListener(new java.awt.event.ActionListener() {
+	            public void actionPerformed(java.awt.event.ActionEvent evt) {
+	                miExpActionPerformed(evt);
+	            }
+	        });
+	        jMenu1.add(miExp);
+
+	        miImp.setText("Exportar");
+	        miImp.addActionListener(new java.awt.event.ActionListener() {
+	            public void actionPerformed(java.awt.event.ActionEvent evt) {
+	                miImpActionPerformed(evt);
+	            }
+	        });
+	        
 	        jMenu1.add(miImp);
 
 	        jMenuBar1.add(jMenu1);
@@ -168,6 +191,37 @@ public class Pantalla extends javax.swing.JFrame {
 	        txtTelefono.setText(null);
 
 	    }
+	    private void miExpActionPerformed(java.awt.event.ActionEvent evt) {
+	        JFileChooser fc = new JFileChooser();
+
+	   
+	        FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.age", "age");
+
+	      
+	        fc.setFileFilter(filtro);
+
+	      
+	        int seleccion = fc.showOpenDialog(this);
+
+	
+	        if (seleccion == JFileChooser.APPROVE_OPTION) {
+
+	            try {
+	            
+	                File fichero = fc.getSelectedFile();
+
+	                
+	                agenda.importarContactos(fichero.getAbsolutePath());
+
+	              
+	                rellenarTabla();
+
+	            } catch (IOException | ClassNotFoundException ex) {
+	                JOptionPane.showMessageDialog(this, ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE );
+	            }
+	        }
+
+	    }
 
 	    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {
 
@@ -211,6 +265,11 @@ public class Pantalla extends javax.swing.JFrame {
 
 	        }
 	    }
+	    private void miImpActionPerformed(java.awt.event.ActionEvent evt) {
+	       
+	        agenda.exportarContactos();
+
+	        JOptionPane.showMessageDialog(this, "Se ha exportado con exito");}
 
 	    private void rellenarTabla() {
 
@@ -254,6 +313,7 @@ public class Pantalla extends javax.swing.JFrame {
 	    private javax.swing.JMenu jMenu1;
 	    private javax.swing.JMenuBar jMenuBar1;
 	    private javax.swing.JScrollPane jScrollPane1;
+	    private javax.swing.JMenuItem miExp;
 	    private javax.swing.JMenuItem miImp;
 	    private javax.swing.JTable tblContactos;
 	    private javax.swing.JTextField txtNombre;

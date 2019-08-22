@@ -1,5 +1,12 @@
 package bl;
 
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import javax.swing.JOptionPane;
 
 import Prac1.Contacto;
@@ -101,6 +108,47 @@ public class Agenda {
         } else {
             JOptionPane.showMessageDialog(null,"No se ha podido modificar el contacto");
         }
+    }
+    
+    public void exportarContactos(){
+        
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("contactos.age"))){;
+        
+       
+            for (int i = 0; i < contactos.length; i++) {
+              
+                if (contactos[i] != null) {
+                  
+                    oos.writeObject(contactos[i]);    
+                } 
+            }
+            
+           
+            JOptionPane.showMessageDialog(null,"Se ha escrito con exito");
+            
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null,ex.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }
+ public void importarContactos(String fichero) throws IOException, ClassNotFoundException{
+        
+        
+        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichero))){
+            
+            Contacto aux;
+          
+            while(true){
+             
+                aux = (Contacto)ois.readObject();
+                
+                
+                aniadirContacto(aux);
+            }
+            
+        }catch(EOFException ex){}
+        
+        
     }
    
 }
